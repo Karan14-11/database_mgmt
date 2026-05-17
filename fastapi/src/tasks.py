@@ -16,10 +16,8 @@ def process_fulfillment(order_id: int):
     """
     print(f"📦 Starting fulfillment for Order {order_id}...")
     
-    # Simulate heavy lifting (e.g., creating PDF, calling Stripe API)
     time.sleep(5) 
-    
-    # Update the database
+
     db = SessionLocal()
     try:
         order = db.query(Order).filter(Order.id == order_id).first()

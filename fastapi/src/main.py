@@ -51,3 +51,24 @@ def get_order_status(order_id: int, db: Session = Depends(get_db)):
     if not order:
         raise HTTPException(status_code=404, detail="Order not found")
     return order
+
+
+
+@app.post("/books", response_model=schemas.BookResponse, status_code=202)
+def add_book(order_req:schemas.BookAdd , db: Session = Depends(get_db)):
+    
+    book = db.query(models.Book).filter(models.Book.title == order_req.title).first()
+
+    if book:
+        raise HTTPException(status_code = 400, detail ="Book already exists")
+    
+    book = models.Book(title=order_req.title, stock=order_req.quantity)
+    db.add(book)
+    db.commit()
+    db.refresh(book)
+
+    return book
+
+    
+
+

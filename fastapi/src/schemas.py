@@ -12,3 +12,15 @@ class OrderResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+class BookAdd(BaseModel):
+    title: str
+    quantity: int
+
+class BookResponse(BaseModel):
+    id: int
+    title: str
+    stock: int
+
+    class Config:
+        from_attributes = True
